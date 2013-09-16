@@ -1,0 +1,41 @@
+{
+  "name": "co-redis",
+  "description": "A node-redis wrapper to be used with visionmedia's co library",
+  "version": "0.0.1",
+  "author": {
+    "name": "Martín Ciparelli",
+    "email": "mciparelli@gmail.com"
+  },
+  "contributors": [
+    {
+      "name": "Martín Ciparelli",
+      "email": "mciparelli@gmail.com"
+    }
+  ],
+  "keywords": [
+    "web",
+    "redis",
+    "database",
+    "continuable",
+    "generators",
+    "harmony",
+    "co"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mciparelli/co-redis"
+  },
+  "main": "index",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": ">=v0.11.4"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "co": "1.5.2",
+    "redis": "0.8.4",
+    "request": "2.20.0"
+  }
+}
