@@ -1,7 +1,7 @@
 {
   "name": "co-redis",
   "description": "A node-redis wrapper to be used with visionmedia's co library",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "author": {
     "name": "Martín Ciparelli",
     "email": "mciparelli@gmail.com"
