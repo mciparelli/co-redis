@@ -21,6 +21,10 @@ module.exports = function (client) {
     return multi;
   };
   
+  Object.keys(client).forEach(function (key) {
+    wrap[key] = client[key];
+  });
+
   Object.keys(Object.getPrototypeOf(client)).forEach(function (key) {
     if (key == 'multi') return;
     wrap[key] = thunkify(client[key].bind(client));
