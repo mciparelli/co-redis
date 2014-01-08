@@ -24,6 +24,18 @@ module.exports = function (client) {
   Object.keys(client).forEach(function (key) {
     wrap[key] = client[key];
   });
+  
+  Object.defineProperty(wrap, 'connected', {
+    get: function () { return client.connected }
+  });
+  
+  Object.defineProperty(wrap, 'retry_delay', {
+    get: function () { return client.retry_delay }
+  });
+  
+  Object.defineProperty(wrap, 'retry_backoff', {
+    get: function () { return client.retry_backoff }
+  });
 
   Object.keys(Object.getPrototypeOf(client)).forEach(function (key) {
     if (key == 'multi') return;
