@@ -27,15 +27,15 @@
   },
   "main": "index",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --harmony-generators"
   },
   "engines": {
     "node": ">=v0.11.4"
   },
   "license": "MIT",
   "devDependencies": {
-    "co": "1.5.2",
-    "redis": "0.8.4",
-    "request": "2.20.0"
+    "co": "~3.0.2",
+    "redis": "~0.10.0",
+    "mocha": "~1.16.2"
   }
 }
