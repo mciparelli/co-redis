@@ -37,5 +37,8 @@
     "co": "~3.0.2",
     "redis": "~0.10.0",
     "mocha": "~1.16.2"
+  },
+  "dependencies": {
+    "thunkify": "0.0.1"
   }
 }

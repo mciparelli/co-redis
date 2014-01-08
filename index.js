@@ -1,14 +1,30 @@
-module.exports = function (redisClient) {
-  var exports = {};
-  require('./commands').forEach(function (command) {
-    var commandLower = command.toLowerCase();
-    exports[command] = function () {
-      var args = Array.prototype.slice.call(arguments);
-      return function (done) {
-        redisClient[command].apply(redisClient, args.concat(done));
-      }
-    }
-    exports[commandLower] = exports[command];
+
+/**
+ * Module dependencies.
+ */
+
+var thunkify = require('thunkify');
+
+/**
+ * Wrap `client`.
+ *
+ * @param {Redis} client
+ * @return {Object}
+ */
+
+module.exports = function (client) {
+  var wrap = {};
+  
+  wrap.multi = function () {
+    var multi = client.multi();
+    multi.exec = thunkify(multi.exec);
+    return multi;
+  };
+  
+  Object.keys(Object.getPrototypeOf(client)).forEach(function (key) {
+    if (key == 'multi') return;
+    wrap[key] = thunkify(client[key].bind(client));
   });
-  return exports;
+  
+  return wrap;
 };
