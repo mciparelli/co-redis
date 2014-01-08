@@ -38,6 +38,9 @@ module.exports = function (client) {
   });
 
   Object.keys(Object.getPrototypeOf(client)).forEach(function (key) {
+    if (['end', 'unref'].indexOf(key) > -1) {
+      return wrap[key] = client[key].bind(client);
+    }
     if (key == 'multi') return;
     wrap[key] = thunkify(client[key].bind(client));
   });
