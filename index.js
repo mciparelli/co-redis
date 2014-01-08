@@ -5,7 +5,8 @@ module.exports = function (redisClient) {
     exports[command] = function () {
       var args = Array.prototype.slice.call(arguments);
       return function (done) {
-        redisClient[command].apply(redisClient, args.concat(done));
+        args.push(done);
+        return redisClient[command].apply(redisClient, args);
       }
     }
     exports[commandLower] = exports[command];
