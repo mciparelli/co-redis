@@ -1,5 +1,7 @@
 **co-redis** is a [node-redis](https://github.com/mranney/node_redis‎) wrapper to be used with [visionmedia's co](https://github.com/visionmedia/co) library.
 
+[![build status](https://secure.travis-ci.org/mciparelli/co-redis.png)](http://travis-ci.org/mciparelli/co-redis)
+
 ## Usage
 
 ```js
