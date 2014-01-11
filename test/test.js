@@ -23,4 +23,21 @@ describe('wrap', function () {
       assert.equal('bar', yield client.get('foo'));
     })(done);
   })
+  
+  it('should support publish / subscribe', function (done) {
+    var pub = wrap(redis.createClient());
+    var sub = wrap(redis.createClient());
+    
+    sub.subscribe('channel');
+    
+    sub.on('subscribe', function () {
+      pub.publish('channel', 'message');
+    });
+
+    sub.on('message', function (channel, message) {
+      assert.equal(channel, 'channel');
+      assert.equal(message, 'message');
+      done();
+    });
+  })
 })
