@@ -4,6 +4,7 @@
  */
 
 var thunkify = require('thunkify');
+var EventEmitter = require('events').EventEmitter;
 
 /**
  * List of API functions that do not take a callback as an argument
@@ -32,6 +33,11 @@ module.exports = function (client) {
   
   Object.keys(client).forEach(function (key) {
     wrap[key] = client[key];
+  });
+  
+  Object.keys(EventEmitter.prototype).forEach(function (key) {
+    if (typeof client[key] != 'function') return;
+    wrap[key] = client[key].bind(client);
   });
   
   Object.defineProperty(wrap, 'connected', {
