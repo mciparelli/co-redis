@@ -19,7 +19,7 @@ co(function* () {
 
     $ npm install co-redis
 
-## License 
+## License
 
 (The MIT License)
 

@@ -34,11 +34,11 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "co": "~3.0.2",
-    "redis": "~0.10.0",
-    "mocha": "~1.16.2"
+    "co": "^3.0.6",
+    "mocha": "*",
+    "redis": "^0.10.1"
   },
   "dependencies": {
-    "thunkify": "0.0.1"
+    "thunkify": "^2.1.1"
   }
 }

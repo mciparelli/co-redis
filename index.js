@@ -13,7 +13,7 @@ var EventEmitter = require('events').EventEmitter;
  * @constant
  * @type {Array}
  */
-var API_FUNCTIONS = ['end', 'unref'];
+var API_FUNCTIONS = ['end', 'unref', 'subscribe', 'publish'];
 
 /**
  * Wrap `client`.
@@ -24,30 +24,30 @@ var API_FUNCTIONS = ['end', 'unref'];
 
 module.exports = function (client) {
   var wrap = {};
-  
+
   wrap.multi = function () {
     var multi = client.multi();
     multi.exec = thunkify(multi.exec);
     return multi;
   };
-  
+
   Object.keys(client).forEach(function (key) {
     wrap[key] = client[key];
   });
-  
+
   Object.keys(EventEmitter.prototype).forEach(function (key) {
     if (typeof client[key] != 'function') return;
     wrap[key] = client[key].bind(client);
   });
-  
+
   Object.defineProperty(wrap, 'connected', {
     get: function () { return client.connected }
   });
-  
+
   Object.defineProperty(wrap, 'retry_delay', {
     get: function () { return client.retry_delay }
   });
-  
+
   Object.defineProperty(wrap, 'retry_backoff', {
     get: function () { return client.retry_backoff }
   });
