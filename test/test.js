@@ -11,7 +11,7 @@ describe('wrap', function () {
       assert.equal(33, yield client.get('test'));
     })(done);
   })
-  
+
   it('should support multi()', function (done) {
     co(function * () {
       var client = wrap(redis.createClient());
@@ -23,13 +23,13 @@ describe('wrap', function () {
       assert.equal('bar', yield client.get('foo'));
     })(done);
   })
-  
+
   it('should support publish / subscribe', function (done) {
     var pub = wrap(redis.createClient());
     var sub = wrap(redis.createClient());
-    
+
     sub.subscribe('channel');
-    
+
     sub.on('subscribe', function () {
       pub.publish('channel', 'message');
     });

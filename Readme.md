@@ -12,14 +12,14 @@ var redisCo = wrapper(redisClient);
 co(function* () {
   yield redisCo.set('test', 33);
   console.log(yield redisCo.get('test')); // logs 33
-});
+})();
 ```
 
 ## Installation
 
     $ npm install co-redis
 
-## License 
+## License
 
 (The MIT License)
 
