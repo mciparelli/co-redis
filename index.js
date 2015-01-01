@@ -3,7 +3,7 @@
  * Module dependencies.
  */
 
-var thunkify = require('thunkify');
+var thenify = require('thenify');
 var EventEmitter = require('events').EventEmitter;
 
 /**
@@ -27,7 +27,7 @@ module.exports = function (client) {
   
   wrap.multi = function () {
     var multi = client.multi();
-    multi.exec = thunkify(multi.exec);
+    multi.exec = thenify(multi.exec);
     return multi;
   };
   
@@ -58,7 +58,7 @@ module.exports = function (client) {
     var isMulti = key == 'multi';
     if (isMulti) return;
     if (isCommand) {
-      protoFunction = thunkify(protoFunction);
+      protoFunction = thenify(protoFunction);
     }
     wrap[key] = protoFunction;
   });

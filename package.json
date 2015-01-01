@@ -30,7 +30,7 @@
     "test": "mocha --harmony-generators"
   },
   "engines": {
-    "node": ">=v0.11.4"
+    "node": ">=v0.11.13"
   },
   "license": "MIT",
   "devDependencies": {
@@ -39,6 +39,6 @@
     "mocha": "~1.16.2"
   },
   "dependencies": {
-    "thunkify": "0.0.1"
+    "thenify": "^3.0.0"
   }
 }
