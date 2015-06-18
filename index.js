@@ -31,6 +31,12 @@ module.exports = function (client) {
     return multi;
   };
   
+  wrap.pipeline = function(){
+    var pipeline = client.pipeline();
+    pipeline.exec = thenify(pipeline.exec);
+    return pipeline;
+  };
+  
   Object.keys(client).forEach(function (key) {
     wrap[key] = client[key];
   });
@@ -56,7 +62,9 @@ module.exports = function (client) {
     var protoFunction = client[key].bind(client);
     var isCommand = API_FUNCTIONS.indexOf(key) === -1;
     var isMulti = key == 'multi';
+    var isPipeline = key == 'pipeline';
     if (isMulti) return;
+    if (isPipeline) return;
     if (isCommand) {
       protoFunction = thenify(protoFunction);
     }
