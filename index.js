@@ -25,8 +25,8 @@ var API_FUNCTIONS = ['end', 'unref'];
 module.exports = function (client) {
   var wrap = {};
   
-  wrap.multi = function () {
-    var multi = client.multi();
+  wrap.multi = function (cmds) {
+    var multi = client.multi(cmds);
     multi.exec = thenify(multi.exec);
     return multi;
   };
