@@ -34,9 +34,9 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "co": "^4.5.4",
-    "mocha": "^2.2.5",
-    "redis": "^0.12.1"
+    "co": "^4.6.0",
+    "mocha": "^2.3.3",
+    "redis": "^2.2.5"
   },
   "dependencies": {
     "thenify": "^3.1.1"
