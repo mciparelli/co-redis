@@ -40,4 +40,16 @@ describe('wrap', function () {
       done();
     });
   })
+
+  it('should work with buffers', function () {
+    return co(function * () {
+      var client = wrap(redis.createClient({ detect_buffers: true }));
+      var key = 'some string';
+      var value = 'this is a buffer';
+      yield client.set(key, value);
+      var buffer = yield client.get(new Buffer(key));
+      assert.strictEqual(buffer.constructor.name, 'Buffer');
+      assert.strictEqual(buffer.toString(), value);
+    });
+  });
 })
