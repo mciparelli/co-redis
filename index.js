@@ -30,6 +30,12 @@ module.exports = function (client) {
     multi.exec = thenify(multi.exec);
     return multi;
   };
+
+  wrap.batch = function (cmds) {
+    var batch = client.batch(cmds);
+    batch.exec = thenify(batch.exec);
+    return batch;
+  };
   
   wrap.pipeline = function(){
     var pipeline = client.pipeline();
@@ -58,13 +64,17 @@ module.exports = function (client) {
     get: function () { return client.retry_backoff }
   });
 
+  var nowrap = {
+    'multi': true,
+    'batch': true,
+    'pipeline': true
+  };
+
   Object.keys(Object.getPrototypeOf(client)).forEach(function (key) {
     var protoFunction = client[key].bind(client);
     var isCommand = API_FUNCTIONS.indexOf(key) === -1;
-    var isMulti = key == 'multi';
-    var isPipeline = key == 'pipeline';
-    if (isMulti) return;
-    if (isPipeline) return;
+    
+    if (nowrap[key]) return;
     if (isCommand) {
       protoFunction = thenify(protoFunction);
     }
