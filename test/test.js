@@ -24,6 +24,24 @@ describe('wrap', function () {
     });
   })
 
+  it('should support batch()', function () {
+    return co(function * () {
+      var client = wrap(redis.createClient());
+      yield client.multi()
+        .set('test', 33)
+        .set('foo', 'bar')
+        .exec();
+
+      var replies = yield client.batch()
+        .get('test')
+        .get('foo')
+        .exec();
+
+      assert.equal(33, replies[0]);
+      assert.equal('bar', replies[1]);
+    });
+  })
+
   it('should support publish / subscribe', function (done) {
     var pub = wrap(redis.createClient());
     var sub = wrap(redis.createClient());
