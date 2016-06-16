@@ -3,7 +3,7 @@
  * Module dependencies.
  */
 
-var thenify = require('thenify');
+var promisify = require('es6-promisify');
 var EventEmitter = require('events').EventEmitter;
 
 /**
@@ -27,19 +27,19 @@ module.exports = function (client) {
   
   wrap.multi = function (cmds) {
     var multi = client.multi(cmds);
-    multi.exec = thenify(multi.exec);
+    multi.exec = promisify(multi.exec, multi);
     return multi;
   };
 
   wrap.batch = function (cmds) {
     var batch = client.batch(cmds);
-    batch.exec = thenify(batch.exec);
+    batch.exec = promisify(batch.exec, batch);
     return batch;
   };
   
   wrap.pipeline = function(){
     var pipeline = client.pipeline();
-    pipeline.exec = thenify(pipeline.exec);
+    pipeline.exec = promisify(pipeline.exec, pipeline);
     return pipeline;
   };
   
@@ -76,7 +76,7 @@ module.exports = function (client) {
     
     if (nowrap[key]) return;
     if (isCommand) {
-      protoFunction = thenify(protoFunction);
+      protoFunction = promisify(protoFunction, client);
     }
     wrap[key] = protoFunction;
   });

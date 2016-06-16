@@ -1,3 +1,7 @@
+# v2.1.1
+
+Switch promisify lib from `thenify` to `es6-promisify`
+
 # v2.1.0
 
 .batch() support
